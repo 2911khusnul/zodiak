@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="{% static 'assets/css/templatemo-softy-pinko.css' %}">
     <link rel="stylesheet" href="{% static 'assets/fontawesome/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/datepicker/css/bootstrap-datepicker.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 
 </head>
@@ -23,7 +24,7 @@
 
 
     {% endblock %}
-    
+    {% include 'footer.html' %}
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -70,6 +71,14 @@
     <!-- Global Init -->
     <script src="{% static 'assets/js/custom.js' %}"></script>
     <script src="{% static 'assets/fontawesome/all.min.js' %}"></script>
+    <script src="{% static 'assets/datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+    <script type="text/javascript">
+      $('.datepicker').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: 'dd-mm-yyyy'
+      });
+    </script>
     
 </body>
 

@@ -8,17 +8,38 @@ from django.contrib.auth.decorators import login_required,user_passes_test,permi
 from .models import *
 from django.http import HttpResponse, JsonResponse
 from . import forms
-from datetime import datetime
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 import os
 import requests
+from datetime import date
+from bs4 import BeautifulSoup as ny_bs
 
 
 base_api = 'https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&'
 # Create your views here.
 def home(request):
-    context = {}
+
+    if request.GET.get('nama') and request.GET.get('tanggal_lahir'):
+        nama = request.GET.get('nama')
+        tanggal_lahir = request.GET.get('tanggal_lahir')
+        url_zodiak = f'{base_api}nama={nama}&tanggal={tanggal_lahir}'
+        req_ramalan = requests.get(url_zodiak)
+        data_ramalan = req_ramalan.json()
+        api_data_ramalan = data_ramalan['data']
+        nama_zodiak = data_ramalan['data']['zodiak']
+
+        # GET DATA RAMALAN DARI WEB LAIN
+        bs_zodiak_url = requests.get(f'http://gemintang.com/ramalan-bintang-setiap-hari/ramalan-{nama_zodiak}-hari-ini/').text
+        bs_soup = ny_bs(bs_zodiak_url,'html.parser')
+        for bs_zodiak in bs_soup.find_all('td',{'align':'center','colspan':'2'})[1:2]:
+     
+            ramalan = bs_zodiak.text.replace('(adsbygoogle = window.adsbygoogle || []).push({});','').replace('''\n''','').replace('. ','''.\n''')
+
+        ramalan_zodiak = ramalan
+        context = {'api_data_ramalan':api_data_ramalan,'ramalan_zodiak':ramalan_zodiak}
+    else:
+        context = {}
     return render(request, 'frontend/home.html', context)
 
 @login_required(login_url='login')
