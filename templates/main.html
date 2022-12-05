@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="{% static 'assets/css/templatemo-softy-pinko.css' %}">
     <link rel="stylesheet" href="{% static 'assets/fontawesome/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/sweetalert2/sweetalert2.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/datepicker/css/bootstrap-datepicker.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 
@@ -71,6 +72,7 @@
     <!-- Global Init -->
     <script src="{% static 'assets/js/custom.js' %}"></script>
     <script src="{% static 'assets/fontawesome/all.min.js' %}"></script>
+    <script src="{% static 'assets/sweetalert2/sweetalert2.min.js' %}"></script>
     <script src="{% static 'assets/datepicker/js/bootstrap-datepicker.min.js' %}"></script>
     <script type="text/javascript">
       $('.datepicker').datepicker({
@@ -79,6 +81,25 @@
         format: 'dd-mm-yyyy'
       });
     </script>
+
+    {% if messages %}
+    {% for message in messages %}
+      <script>
+          $(document).ready(function(){
+              // console.log($('#exampleInputFile').val())
+              function ops() {
+                  Swal.fire(
+                      '{{message.tags}}!',
+                      '{{message}}!',
+                      '{{message.tags}}'
+                      )
+              }
+              ops();
+          });
+
+      </script>
+    {% endfor %}
+    {% endif %}
     
 </body>
 

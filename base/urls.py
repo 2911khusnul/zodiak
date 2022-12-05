@@ -7,13 +7,9 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('login/', views.loginPage, name="login"),
     path('logout', views.logout_view, name='logout'),
-    path('operator/dashboard', views.dashboard, name="dashboard"),
-
-
-
-    path('operator/setting', views.setting, name="setting"),
-    path('operator/form', views.artikelTambah, name="form-statis"),
-    path('operator/profil', views.profil, name="profil"),
+    
+    path('kritik-saran', views.kritikSaran, name="kritik-saran-post"),
+    path('komentar', views.komentar, name="komentar"),
 ]
 
 if settings.DEBUG:

@@ -250,12 +250,12 @@
                       <div class="row">
                         <div class="col-lg-6 col-md-12 col-sm-12">
                           <fieldset>
-                            <input name="nama" type="text" class="form-control" id="nama" placeholder="Nama Lengkap" required="">
+                            <input name="nama" type="text" class="form-control" id="nama" placeholder="Nama Lengkap" required="" {% if request.GET.nama %} value="{{request.GET.nama}}" {% endif %}>
                           </fieldset>
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12">
                           <fieldset>
-                            <input name="tanggal_lahir" type="text" readonly class="form-control datepicker" id="tanggal" placeholder="Tanggal Lahir" required="">
+                            <input name="tanggal_lahir" type="text" readonly class="form-control datepicker" id="tanggal" placeholder="Tanggal Lahir" required=""  {% if request.GET.tanggal_lahir %} value="{{request.GET.tanggal_lahir}}" {% endif %}>
                           </fieldset>
                         </div>
                         <div class="col-lg-12 text-center">
@@ -289,9 +289,32 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <h3 class="margin-bottom-30">Ramalan Zodiak {{api_data_ramalan.zodiak}} Hari Ini</h3>
-                        <div class="contact-text">
+                        <div class="contact-text margin-bottom-30">
                             <h5 class="">{{ramalan_zodiak}}</h5>
                         </div>
+                        {% if request.user.is_authenticated %}
+                        <div class="contact-form">
+                            <form id="contact" action="{% url 'komentar' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="zodiak" value="{{api_data_ramalan.zodiak}}">
+                                <input type="hidden" name="ramalan" value="{{ramalan_zodiak}}">
+                              <div class="row">
+                                <div class="col-lg-8 col-md-12 col-sm-12">
+                                  <fieldset>
+                                    <input name="komentar" type="text" class="form-control" id="komentar" placeholder="Komentar Disini..." required="">
+                                  </fieldset>
+                                </div>
+                                <div class="col-lg-4">
+                                  <fieldset>
+                                    <button type="submit" id="form-submit" class="main-button">Kirim</button>
+                                  </fieldset>
+                                </div>
+                              </div>
+                            </form>
+                        </div>
+                        {% else %}
+                        <h4 class="margin-bottom-30">Ingin Berkomentar ? <a href="#" data-toggle="modal" data-target="#loginModal">Login Terlebih Dahulu🐱‍🏍</a></h4>
+                        {% endif %}
                     </div>
                 </div>
                 {% endif %}
@@ -309,7 +332,7 @@
             <div class="row text-center justify-content-center">
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="count-item">
-                        <strong>126</strong>
+                        <strong>{{jumlah_user}}</strong>
                         <span>Pengguna Terbantu</span>
                     </div>
                 </div>
@@ -350,7 +373,7 @@
             <!-- ***** Contact Form Start ***** -->
             <div class="col-lg-8 col-md-6 col-sm-12">
                 <div class="contact-form">
-                    <form id="contact" action="" method="POST">
+                    <form id="contact" action="{% url 'kritik-saran-post' %}" method="POST">
                         {% csrf_token %}
                       <div class="row">
                         <div class="col-lg-6 col-md-12 col-sm-12">
