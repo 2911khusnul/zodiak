@@ -1,0 +1,120 @@
+{% extends 'main.html' %} 
+
+{% load static %}    
+{% block content %}
+
+<section class="mini" id="zodiak">
+    <div class="mini-content">
+        <div class="container">
+            <div class="row">
+                <div class="offset-lg-3 col-lg-6">
+                    <div class="info mt-5">
+                        <h1>Ramalan Zodiak Terupdate</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Contact Us Start ***** -->
+<section class="section colored" id="ramalan">
+    <div class="container">
+        <!-- ***** Section Title Start ***** -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="center-heading">
+                    <h2 class="section-title">Lihat Ramalan Zodiak</h2>
+                </div>
+            </div>
+            <div class="offset-lg-3 col-lg-6">
+                <div class="center-text">
+                    <p>Isi Form Dibawah Untuk Melihat Ramalan Dari Zodiak Anda</p>
+                </div>
+            </div>
+        </div>
+        <!-- ***** Section Title End ***** -->
+
+        <div class="row">
+            <!-- ***** Contact Form Start ***** -->
+            <div class="col-lg-12 col-md-6 col-sm-12">
+                <div class="contact-form">
+                    <form id="contact" action="" method="GET">
+                      <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                          <fieldset>
+                            <input name="nama" type="text" class="form-control" id="nama" placeholder="Nama Lengkap" required="" {% if request.GET.nama %} value="{{request.GET.nama}}" {% endif %}>
+                          </fieldset>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                          <fieldset>
+                            <input name="tanggal_lahir" type="text" readonly class="form-control datepicker" id="tanggal" placeholder="Tanggal Lahir" required=""  {% if request.GET.tanggal_lahir %} value="{{request.GET.tanggal_lahir}}" {% endif %}>
+                          </fieldset>
+                        </div>
+                        <div class="col-lg-12 text-center">
+                          <fieldset>
+                            <button type="submit" id="form-submit" class="main-button">Lihat Ramalan Hari Ini</button>
+                          </fieldset>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+                {% if request.GET.nama %}
+                <div class="row mt-4 text-center">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <h3 class="margin-bottom-30">Data Zodiak Anda</h3>
+                        <div class="contact-text">
+                            <h5 class="">Nama</h5>
+                            <p>{{api_data_ramalan.nama}}</p>
+                        </div>
+                        <div class="contact-text">
+                            <h5 class="">Lahir</h5>
+                            <p>{{api_data_ramalan.lahir}}</p>
+                        </div>
+                        <div class="contact-text">
+                            <h5 class="">Usia</h5>
+                            <p>{{api_data_ramalan.usia}}</p>
+                        </div>
+                        <div class="contact-text">
+                            <h5 class="">Zodiak</h5>
+                            <p>{{api_data_ramalan.zodiak}}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <h3 class="margin-bottom-30">Ramalan Zodiak {{api_data_ramalan.zodiak}} Hari Ini</h3>
+                        <div class="contact-text margin-bottom-30">
+                            <h5 class="">{{ramalan_zodiak}}</h5>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                        <div class="contact-form">
+                            <form id="contact" action="{% url 'komentar' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="zodiak" value="{{api_data_ramalan.zodiak}}">
+                                <input type="hidden" name="ramalan" value="{{ramalan_zodiak}}">
+                              <div class="row">
+                                <div class="col-lg-8 col-md-12 col-sm-12">
+                                  <fieldset>
+                                    <input name="komentar" type="text" class="form-control" id="komentar" placeholder="Komentar Disini..." required="">
+                                  </fieldset>
+                                </div>
+                                <div class="col-lg-4">
+                                  <fieldset>
+                                    <button type="submit" id="form-submit" class="main-button">Kirim</button>
+                                  </fieldset>
+                                </div>
+                              </div>
+                            </form>
+                        </div>
+                        {% else %}
+                        <h4 class="margin-bottom-30">Ingin Berkomentar ? <a href="#" data-toggle="modal" data-target="#loginModal">Login Terlebih Dahulu🐱‍🏍</a></h4>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <!-- ***** Contact Form End ***** -->
+        </div>
+    </div>
+</section>
+<!-- ***** Contact Us End ***** -->
+
+{% endblock %}

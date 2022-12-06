@@ -21,6 +21,21 @@ class KritikSaran(models.Model):
         return self.nama
 
 
+class Zodiak(models.Model):
+    nama_zodiak = models.CharField(max_length=255)
+    tanggal = models.CharField(max_length=255)
+    simbol = models.CharField(max_length=255)
+    deskripsi = models.TextField()
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    # class Meta:
+    #     ordering = ['-updated', '-created']
+
+    def __str__(self):
+        return self.nama_zodiak
+
 class Komentar(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     zodiak = models.CharField(max_length=255)

@@ -133,90 +133,15 @@
 
             <!-- ***** Mini Box Start ***** -->
             <div class="row">
+                {% for zodiak in zodiaks %}
                 <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <a href="#" class="mini-box">
-                        <i>♒</i>
-                        <strong>Aquarius</strong>
-                        <span>20 Januari - 18 Februari</span>
+                    <a href="{% url 'detail-zodiak' zodiak.nama_zodiak %}" class="mini-box">
+                        <i>{{zodiak.simbol}}</i>
+                        <strong>{{zodiak.nama_zodiak}}</strong>
+                        <span>{{zodiak.tanggal}}</span>
                     </a>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <a href="#" class="mini-box">
-                        <i>♓</i>
-                        <strong>Pisces</strong>
-                        <span>19 Februari - 20 Maret</span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <a href="#" class="mini-box">
-                        <i>♈</i>
-                        <strong>Aries</strong>
-                        <span>21 Maret - 19 April</span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <a href="#" class="mini-box">
-                        <i>♉</i>
-                        <strong>Taurus</strong>
-                        <span>20 April - 20 <br>Mei</span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <a href="#" class="mini-box">
-                        <i>♊</i>
-                        <strong>Gemini</strong>
-                        <span>21 Mei - 20 <br>Juni</span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <a href="#" class="mini-box">
-                        <i>♋</i>
-                        <strong>Cancer</strong>
-                        <span>21 Juni - 22 <br>Juli</span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <a href="#" class="mini-box">
-                        <i>♌</i>
-                        <strong>Leo</strong>
-                        <span>23 Juli - 22 Agustus</span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <a href="#" class="mini-box">
-                        <i>♍</i>
-                        <strong>Virgo</strong>
-                        <span>23 Agustus - 22 September</span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <a href="#" class="mini-box">
-                        <i>♎</i>
-                        <strong>Libra</strong>
-                        <span>23 September - 22 Oktober</span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <a href="#" class="mini-box">
-                        <i>♏</i>
-                        <strong>Scorpio</strong>
-                        <span>23 Oktober - 21 November</span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <a href="#" class="mini-box">
-                        <i>♐</i>
-                        <strong>Sagitarius</strong>
-                        <span>22 November - 21 Desember</span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <a href="#" class="mini-box">
-                        <i>♑</i>
-                        <strong>Capricorn</strong>
-                        <span>22 Desember - 19 Januari</span>
-                    </a>
-                </div>
+                {% endfor %}
             </div>
             <!-- ***** Mini Box End ***** -->
         </div>
@@ -359,6 +284,7 @@
             </div>
         </div>
         <!-- ***** Section Title End ***** -->
+        {% if request.user.is_authenticated %}
 
         <div class="row">
             <!-- ***** Contact Text Start ***** -->
@@ -400,6 +326,9 @@
                     </form>
                 </div>
             </div>
+            {% else %}
+            <h4 class="margin-bottom-30 text-center">Ingin Memberi Kritik & Saran ? <a href="#" data-toggle="modal" data-target="#loginModal">Login Terlebih Dahulu 🐱‍🏍</a></h4>
+            {% endif %}
             <!-- ***** Contact Form End ***** -->
         </div>
     </div>

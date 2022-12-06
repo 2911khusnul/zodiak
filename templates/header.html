@@ -24,11 +24,12 @@
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><a href="#welcome" class="active">Home</a></li>
-                        <li><a href="#features">About</a></li>
-                        <li><a href="#zodiak">Zodiak</a></li>
-                        <li><a href="#ramalan">Ramalan</a></li>
-                        <li><a href="#krisar">Kritik & Saran</a></li>
+                        {% url 'home' as url %}
+                        <li><a href="{% url 'home' %}" class="{% if request.path == url %}active{% endif %}">Home</a></li>
+                        <li><a href="{% url 'tentang' %}" class="{% if 'tentang' in request.path %} active {% endif %}">About</a></li>
+                        <li><a href="{% url 'zodiak' %}" class="{% if 'zodiak/' in request.path %}active{% endif %}">Zodiak</a></li>
+                        <li><a href="{% url 'ramalan' %}" class="{% if 'ramalan/' in request.path %}active{% endif %}">Ramalan</a></li>
+                        <li><a href="{% url 'kritik-saran' %}" class="{% if 'kritik-saran/' in request.path %}active{% endif %}">Kritik & Saran</a></li>
                         {% if request.user.is_authenticated %}
                         <li><a href="{% url 'logout' %}">Logout, {{request.user}} ?&nbsp;<i class="fas fa-sign-out-alt"></i></a></li>
                         {% else %}

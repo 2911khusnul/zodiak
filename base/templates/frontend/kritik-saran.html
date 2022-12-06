@@ -1,0 +1,149 @@
+{% extends 'main.html' %} 
+
+{% load static %}    
+{% block content %}
+<section class="mini" id="zodiak">
+    <div class="mini-content">
+        <div class="container">
+            <div class="row">
+                <div class="offset-lg-3 col-lg-6">
+                    <div class="info mt-5">
+                        <h1>Kritik & Saran</h1>
+                        {% if request.user.is_authenticated %}
+                        {% if request.user.is_superuser == 1 %}
+                        <p>Anda Melihat Laman Ini Sebagai Superuser</p>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Contact Us Start ***** -->
+<section class="section colored" id="krisar">
+    <div class="container">
+        <!-- ***** Section Title Start ***** -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="center-heading">
+                    <h2 class="section-title">Kritik & Saran</h2>
+                </div>
+            </div>
+            <div class="offset-lg-3 col-lg-6">
+                <div class="center-text">
+                    <p>Berikan kritik & saran anda agar website ini lebih baik kedepannya.</p>
+                </div>
+            </div>
+        </div>
+        <!-- ***** Section Title End ***** -->
+        {% if request.user.is_authenticated %}
+        {% if request.user.is_superuser == 0 %}
+
+        <div class="row">
+            <!-- ***** Contact Text Start ***** -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <h5 class="margin-bottom-30">Isi form di samping</h5>
+                <div class="contact-text">
+                    <p>Berikan kritik / saran yang membangun, bukan menjatuhkan.</p>
+                </div>
+            </div>
+            <!-- ***** Contact Text End ***** -->
+
+            <!-- ***** Contact Form Start ***** -->
+            <div class="col-lg-8 col-md-6 col-sm-12">
+                <div class="contact-form">
+                    <form id="contact" action="{% url 'kritik-saran-post' %}" method="POST">
+                        {% csrf_token %}
+                      <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                          <fieldset>
+                            <input name="nama" type="text" class="form-control" id="nama" placeholder="Nama Lengkap" required="">
+                          </fieldset>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                          <fieldset>
+                            <input name="email" type="email" class="form-control" id="email" placeholder="E-Mail" required="">
+                          </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                          <fieldset>
+                            <textarea name="pesan" rows="6" class="form-control" id="message" placeholder="Pesanmu Untuk Kami" required=""></textarea>
+                          </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                          <fieldset>
+                            <button type="submit" id="form-submit" class="main-button">Kirim Pesan</button>
+                          </fieldset>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <table class="table margin-bottom-30">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nama Pengirim</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Kritik & Saran</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for krisar in kritik_saran %}
+                <tr>
+                  <th scope="row">{{forloop.counter}}</th>
+                  <td>{{krisar.nama}}</td>
+                  <td>{{krisar.email}}</td>
+                  <td>{{krisar.pesan}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="center-heading">
+                        <h2 class="section-title">Komentar Pengguna</h2>
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nama Pengirim</th>
+                  <th scope="col">Zodiak</th>
+                  <th scope="col">Ramalan</th>
+                  <th scope="col">Komentar</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for komentar in komentars %}
+                <tr>
+                  <th scope="row">{{forloop.counter}}</th>
+                  <td>{{komentar.user}}</td>
+                  <td>{{komentar.zodiak}}</td>
+                  <td>{{komentar.ramalan}}</td>
+                  <td>{{komentar.komentar}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            {% endif %}
+            {% else %}
+            <h4 class="margin-bottom-30 text-center">Ingin Memberi Kritik & Saran ? <a href="#" data-toggle="modal" data-target="#loginModal">Login Terlebih Dahulu 🐱‍🏍</a></h4>
+            {% endif %}
+            <!-- ***** Contact Form End ***** -->
+        </div>
+    </div>
+</section>
+<!-- ***** Contact Us End ***** -->
+
+
+
+
+
+{% endblock %}

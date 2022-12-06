@@ -1,0 +1,38 @@
+{% extends 'main.html' %} 
+
+{% load static %}    
+{% block content %}
+
+
+<!-- ***** Home Parallax Start ***** -->
+<section class="mini" id="zodiak">
+    <div class="mini-content">
+        <div class="container">
+            <div class="row">
+                <div class="offset-lg-3 col-lg-6">
+                    <div class="info mt-5">
+                        <h1>Zodiak / Rasi Bintang</h1>
+                        <p>12 zodiak yang tersedia.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ***** Mini Box Start ***** -->
+            <div class="row">
+                {% for zodiak in zodiaks %}
+                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
+                    <a href="{% url 'detail-zodiak' zodiak.nama_zodiak %}" class="mini-box">
+                        <i>{{zodiak.simbol}}</i>
+                        <strong>{{zodiak.nama_zodiak}}</strong>
+                        <span>{{zodiak.tanggal}}</span>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- ***** Mini Box End ***** -->
+        </div>
+    </div>
+</section>
+<!-- ***** Home Parallax End ***** -->
+
+{% endblock %}
