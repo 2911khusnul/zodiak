@@ -33,7 +33,7 @@ def home(request):
         # GET DATA RAMALAN DARI WEB LAIN
         bs_zodiak_url = requests.get(f'http://gemintang.com/ramalan-bintang-setiap-hari/ramalan-{nama_zodiak}-hari-ini/').text
         bs_soup = ny_bs(bs_zodiak_url,'html.parser')
-        ramalan = 'Ramalan Belum Tersedia Saat Ini'
+        ramalan = 'Ramalan Belum Tersedia Untuk Tanggal Lahir Tersebut.'
         for bs_zodiak in bs_soup.find_all('td',{'align':'center','colspan':'2'})[1:2]:
 
             ramalan = bs_zodiak.text.replace('(adsbygoogle = window.adsbygoogle || []).push({});','').replace('''\n''','').replace('. ','''.\n''')
@@ -187,7 +187,7 @@ def ramalan(request):
         # GET DATA RAMALAN DARI WEB LAIN
         bs_zodiak_url = requests.get(f'http://gemintang.com/ramalan-bintang-setiap-hari/ramalan-{nama_zodiak}-hari-ini/').text
         bs_soup = ny_bs(bs_zodiak_url,'html.parser')
-        ramalan = 'Ramalan Belum Tersedia Saat Ini'
+        ramalan = 'Ramalan Belum Tersedia Untuk Tanggal Lahir Tersebut.'
         for bs_zodiak in bs_soup.find_all('td',{'align':'center','colspan':'2'})[1:2]:
 
             ramalan = bs_zodiak.text.replace('(adsbygoogle = window.adsbygoogle || []).push({});','').replace('''\n''','').replace('. ','''.\n''')

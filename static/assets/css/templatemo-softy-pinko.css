@@ -751,7 +751,7 @@ features
 --------------------------------------------- 
 */
 .features-small-item {
-  cursor: pointer;
+/*  cursor: pointer;*/
   display: block;
   background: #FFFFFF;
   box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.10);

@@ -26,7 +26,7 @@
                     <ul class="nav">
                         {% url 'home' as url %}
                         <li><a href="{% url 'home' %}" class="{% if request.path == url %}active{% endif %}">Home</a></li>
-                        <li><a href="{% url 'tentang' %}" class="{% if 'tentang' in request.path %} active {% endif %}">About</a></li>
+                        <li><a href="{% url 'tentang' %}" class="{% if 'tentang' in request.path %} active {% endif %}">Tentang</a></li>
                         <li><a href="{% url 'zodiak' %}" class="{% if 'zodiak/' in request.path %}active{% endif %}">Zodiak</a></li>
                         <li><a href="{% url 'ramalan' %}" class="{% if 'ramalan/' in request.path %}active{% endif %}">Ramalan</a></li>
                         <li><a href="{% url 'kritik-saran' %}" class="{% if 'kritik-saran/' in request.path %}active{% endif %}">Kritik & Saran</a></li>
